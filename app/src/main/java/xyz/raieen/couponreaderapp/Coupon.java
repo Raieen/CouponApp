@@ -1,18 +1,21 @@
 package xyz.raieen.couponreaderapp;
 
+/**
+ * Represents a coupon
+ */
 public class Coupon {
 
-    String id;
+    String id; // Id in db
     private boolean redeemable;
-    private String action, receipient;
+    private String action, recipient;
     private int quantity;
     private long redeemed;
 
-    public Coupon(String id, boolean redeemable, String action, String receipient, int quantity, long redeemed) {
+    public Coupon(String id, boolean redeemable, String action, String recipient, int quantity, long redeemed) {
         this.id = id;
         this.redeemable = redeemable;
         this.action = action;
-        this.receipient = receipient;
+        this.recipient = recipient;
         this.quantity = quantity;
         this.redeemed = redeemed;
     }
@@ -37,12 +40,12 @@ public class Coupon {
         this.action = action;
     }
 
-    public String getReceipient() {
-        return receipient;
+    public String getRecipient() {
+        return recipient;
     }
 
-    public void setReceipient(String receipient) {
-        this.receipient = receipient;
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public int getQuantity() {
