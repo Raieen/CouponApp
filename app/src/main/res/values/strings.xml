@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CouponReaderApp</string>
+    <string name="scan_coupon">Place a QR code inside the rectangle to scan.</string>
+</resources>
