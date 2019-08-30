@@ -20,6 +20,8 @@ public class Coupon {
         this.redeemed = redeemed;
     }
 
+    // Getters/Setters
+
     public String getId() {
         return id;
     }
