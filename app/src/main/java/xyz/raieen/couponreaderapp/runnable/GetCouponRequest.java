@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 import xyz.raieen.couponreaderapp.MainActivity;
+import xyz.raieen.couponreaderapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,13 +37,14 @@ public class GetCouponRequest extends JsonObjectRequest {
                     boolean redeemable = response.getBoolean("redeemable");
                     final long redeemed = response.getLong("redeemed");
 
-                    new AlertDialog.Builder(context).setTitle("Authorize this coupon?")
-                            .setMessage(String.format("Id: %s\nQuantity: %s\nAction: %s\nRecipient: %s\nRedeemable: %s\nRedeemed: %s", id, quantity, action, recipient, redeemable, redeemed)).setNegativeButton("Cancel", null)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    new AlertDialog.Builder(context).setTitle(context.getString(R.string.coupon_authorize))
+                            .setMessage(context.getString(R.string.coupon_details, id, quantity, action, recipient, redeemable, redeemed))
+                            .setNegativeButton(context.getText(R.string.cancel), null)
+                            .setPositiveButton(context.getText(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (redeemed != 0) { // Don't allow coupons to be double-redeemed
-                                        Toast.makeText(context, "Coupon was already redeemed.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, context.getString(R.string.coupon_redeemed), Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                     new Thread(new Runnable() {

@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void showScanningIntent() {
         new IntentIntegrator(this).setDesiredBarcodeFormats(IntentIntegrator.QR_CODE).setBeepEnabled(false)
-                .setOrientationLocked(false).setPrompt(getText(R.string.scan_coupon).toString()).initiateScan();
+                .setOrientationLocked(false).setPrompt(getText(R.string.zxing_message).toString()).initiateScan();
     }
 
     /**

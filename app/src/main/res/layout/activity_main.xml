@@ -16,30 +16,30 @@
             android:minHeight="?attr/actionBarSize" android:id="@+id/activity_main_toolbar"
             android:elevation="8dp"/>
     <TextView
-            android:text="Action"
+            android:text="@string/action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Action"
-            android:hint="Action"
+            android:text="@string/action"
+            android:hint="@string/action"
             android:ems="10"
             android:id="@+id/activity_main_edit_action"/>
     <TextView
-            android:text="Recipient"
+            android:text="@string/recipient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView2"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="Recipient"
+            android:text="@string/recipient"
             android:ems="10"
             android:id="@+id/activity_main_edit_recipient"/>
     <TextView
-            android:text="Quantity"
+            android:text="@string/quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView4"/>
     <LinearLayout
@@ -57,19 +57,15 @@
                     android:layout_weight="1" android:entries="@array/spinner"/>
         </LinearLayout>
         <CheckBox
-                android:text="Redeemable"
+                android:text="@string/redeemable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/activity_main_check_redeemable"
                 android:layout_weight="1"/>
     </LinearLayout>
     <Button
-            android:text="Create"
+            android:text="@string/create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/activity_main_btn_create"
     />
-    <Button
-            android:text="redeem_tmp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/redeem_tmp"/>
 </LinearLayout>

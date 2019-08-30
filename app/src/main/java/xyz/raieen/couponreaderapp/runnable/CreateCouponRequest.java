@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 import xyz.raieen.couponreaderapp.MainActivity;
+import xyz.raieen.couponreaderapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class CreateCouponRequest extends JsonObjectRequest {
 
                     Log.d(TAG, String.format("onResponse: Created coupon for %d %s", quantity, action));
                     new AlertDialog.Builder(context).setTitle("Successfully Created Coupon")
-                            .setMessage(String.format("Id: %s\nQuantity: %s\nAction: %s\nRecipient: %s\nRedeemable: %s\nRedeemed: %s", id, quantity, action, recipient, redeemable, redeemed))
+                            .setMessage(context.getString(R.string.coupon_details, id, quantity, action, recipient, redeemable, redeemed))
                             .create().show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -53,7 +54,6 @@ public class CreateCouponRequest extends JsonObjectRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onErrorResponse: Volley Error " + error.getMessage());
-
             }
         });
 

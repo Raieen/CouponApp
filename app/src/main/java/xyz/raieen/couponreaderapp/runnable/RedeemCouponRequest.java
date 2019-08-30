@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 import xyz.raieen.couponreaderapp.MainActivity;
+import xyz.raieen.couponreaderapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class RedeemCouponRequest extends JsonObjectRequest {
                     String action = response.getString("action");
 
                     Log.d(TAG, String.format("onResponse: Redeemed coupon for %d %s", quantity, action));
-                    Toast.makeText(context, String.format("Successfully redeemed coupon for %d %s.", quantity, action), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.redeem_success, quantity, action), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     Log.e(TAG, "onResponse: Malformed coupon response.", e);
                 }
