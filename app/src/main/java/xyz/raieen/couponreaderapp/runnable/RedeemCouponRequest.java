@@ -3,7 +3,6 @@ package xyz.raieen.couponreaderapp.runnable;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -14,9 +13,11 @@ import xyz.raieen.couponreaderapp.MainActivity;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents a request to redeem a coupon given the coupon id
+ * Corresponds to POST: /coupon/{id}/redeem
+ */
 public class RedeemCouponRequest extends JsonObjectRequest {
-
-    private final String TAG = "RedeemCouponRequest";
 
     public RedeemCouponRequest(String url, final Context context) {
         super(Method.POST, url, null, new Response.Listener<JSONObject>() {
@@ -29,9 +30,7 @@ public class RedeemCouponRequest extends JsonObjectRequest {
                     String action = response.getString("action");
 
                     Log.d(TAG, String.format("onResponse: Redeemed coupon for %d %s", quantity, action));
-                    Toast.makeText(context, "Successfully redeemed coupon.", Toast.LENGTH_SHORT).show();
-                    // TODO: 2019-08-30 display for user
-//                    Toast.makeText(context, String.format("Successfully redeemed coupon for %d %s", quantity, action), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, String.format("Successfully redeemed coupon for %d %s.", quantity, action), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     Log.e(TAG, "onResponse: Malformed coupon response.", e);
                 }

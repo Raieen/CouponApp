@@ -3,7 +3,6 @@ package xyz.raieen.couponreaderapp.runnable;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.RequestQueue;
@@ -17,6 +16,10 @@ import xyz.raieen.couponreaderapp.MainActivity;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents a request to get a coupon given the id.
+ * Corresponds to POST: /coupon/{id}
+ */
 public class GetCouponRequest extends JsonObjectRequest {
 
     public GetCouponRequest(String url, final Context context, final RequestQueue requestQueue, final String couponId) {
@@ -38,13 +41,14 @@ public class GetCouponRequest extends JsonObjectRequest {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if (redeemed != 0) {
+                                    if (redeemed != 0) { // Don't allow coupons to be double-redeemed
                                         Toast.makeText(context, "Coupon was already redeemed.", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            // Send redeem request
                                             requestQueue.add(new RedeemCouponRequest(MainActivity.COUPON_ENDPOINT + couponId + "/redeem", context));
                                         }
                                     }).start();

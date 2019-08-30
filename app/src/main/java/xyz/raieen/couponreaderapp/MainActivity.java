@@ -16,14 +16,16 @@ import com.google.zxing.integration.android.IntentResult;
 import xyz.raieen.couponreaderapp.runnable.CreateCouponRequest;
 import xyz.raieen.couponreaderapp.runnable.GetCouponRequest;
 
+/**
+ * Main Activity
+ */
 public class MainActivity extends AppCompatActivity {
 
-    //    public static final String HOST = "http://raieen.xyz:8080/coupon"; // TODO: 2019-08-30 Use preferences
-    public static String TAG = "MainActivity";
-    public static final String APPLICATION_SECRET = "abc";
+    private final String TAG = "MainActivity";
 
     // Coupon API
-    public static final String COUPON_ENDPOINT = "http://192.168.2.59:8080/coupon/";
+    public static final String COUPON_ENDPOINT = "http://192.168.2.59:8080/coupon/"; // TODO: 2019-08-30 Use preferences
+    public static final String APPLICATION_SECRET = "abc";
 
     // Volley
     private RequestQueue requestQueue;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         /*
          * Android
          */
+
+        // Toolbar Setup
         Toolbar toolbar = findViewById(R.id.activity_main_toolbar);
         toolbar.inflateMenu(R.menu.menu_toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        // Create Coupon Setup
         final EditText editAction = findViewById(R.id.activity_main_edit_action);
         final EditText editRecipient = findViewById(R.id.activity_main_edit_recipient);
         final Spinner spinnerQuantity = findViewById(R.id.activity_main_spinner_quantity);
@@ -68,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
                         String action = editAction.getText().toString(), recipient = editRecipient.getText().toString();
                         int quantity = Integer.parseInt(spinnerQuantity.getSelectedItem().toString());
                         boolean redeemable = checkRedeemable.isChecked();
-                        // TODO: 2019-08-30 Probably some check for validity here.
-                        requestQueue.add(new CreateCouponRequest(COUPON_ENDPOINT, action, recipient, quantity, redeemable));
+
+                        if (action.trim().isEmpty()) return;
+                        requestQueue.add(new CreateCouponRequest(COUPON_ENDPOINT, action, recipient,
+                                quantity, redeemable, getApplicationContext()));
                     }
                 }).start();
             }
@@ -77,24 +85,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Opens zxing
-     * https://github.com/zxing/zxing/wiki/Scanning-Via-Intent
+     * Opens zxing for scanning QR code on coupons
+     *
+     * @see <a href="https://github.com/zxing/zxing/wiki/Scanning-Via-Intent">https://github.com/zxing/zxing/wiki/Scanning-Via-Intent</a>
      */
-    protected void showScanningIntent() {
+    private void showScanningIntent() {
         new IntentIntegrator(this).setDesiredBarcodeFormats(IntentIntegrator.QR_CODE).setBeepEnabled(false)
                 .setOrientationLocked(false).setPrompt(getText(R.string.scan_coupon).toString()).initiateScan();
     }
 
-    public String getCouponId(String string) {
-        return string.replaceAll(COUPON_ENDPOINT, "");
-    }
-
+    /**
+     * Handles the result of scanning QR code from zxing.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        // Result from qr scan
         if (intentResult != null && intentResult.getContents() != null) {
-            String result = intentResult.getContents();
+            String result = intentResult.getContents(); // Result from scan
             Log.d(TAG, String.format("onActivityResult: Scanned %s", result));
 
             // Coupon QR Codes are formatted as COUPON_URL_PREFIX{id}
@@ -103,9 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            final String couponId = getCouponId(result);
+            final String couponId = result.replaceAll(COUPON_ENDPOINT, "");
             Log.d(TAG, String.format("onActivityResult: Coupon has id %s", couponId));
-
             requestQueue.add(new GetCouponRequest(COUPON_ENDPOINT + "/" + couponId, this, requestQueue, couponId));
         }
     }
