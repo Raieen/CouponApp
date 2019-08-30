@@ -19,12 +19,7 @@ import java.util.Map;
 
 public class GetCouponRequest extends JsonObjectRequest {
 
-    // Displays coupon results in an alert dialog.
-    // Displays all the coupon details.
-    // Have a button that says 'Authorize coupon' to send a redeemcouponrequest
-    private final String TAG = "GetCouponRequest";
-
-    public GetCouponRequest(String url, final Context context, final RequestQueue requestQueue, final String couponUrl) {
+    public GetCouponRequest(String url, final Context context, final RequestQueue requestQueue, final String couponId) {
         super(Method.POST, url, null, new Response.Listener<JSONObject>() {
             private final String TAG = "GetCouponRequestL";
 
@@ -50,7 +45,7 @@ public class GetCouponRequest extends JsonObjectRequest {
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            requestQueue.add(new RedeemCouponRequest(couponUrl));
+                                            requestQueue.add(new RedeemCouponRequest(MainActivity.COUPON_ENDPOINT + couponId + "/redeem", context));
                                         }
                                     }).start();
                                 }

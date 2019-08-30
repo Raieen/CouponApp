@@ -1,5 +1,6 @@
 package xyz.raieen.couponreaderapp.runnable;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -17,7 +18,7 @@ public class RedeemCouponRequest extends JsonObjectRequest {
 
     private final String TAG = "RedeemCouponRequest";
 
-    public RedeemCouponRequest(String url) {
+    public RedeemCouponRequest(String url, final Context context) {
         super(Method.POST, url, null, new Response.Listener<JSONObject>() {
             private final String TAG = "RedeemCouponRequestL";
 
@@ -28,6 +29,7 @@ public class RedeemCouponRequest extends JsonObjectRequest {
                     String action = response.getString("action");
 
                     Log.d(TAG, String.format("onResponse: Redeemed coupon for %d %s", quantity, action));
+                    Toast.makeText(context, "Successfully redeemed coupon.", Toast.LENGTH_SHORT).show();
                     // TODO: 2019-08-30 display for user
 //                    Toast.makeText(context, String.format("Successfully redeemed coupon for %d %s", quantity, action), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {

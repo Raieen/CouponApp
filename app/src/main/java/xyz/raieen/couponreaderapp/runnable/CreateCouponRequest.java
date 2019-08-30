@@ -30,7 +30,8 @@ public class CreateCouponRequest extends JsonObjectRequest {
                 try {
                     int quantity = response.getInt("quantity");
                     String action = response.getString("action");
-
+                    // TODO: 30/08/19 Probably display all in an alert dialog.
+                    Log.d(TAG, String.format("onResponse: Created coupon for %d %s", quantity, action));
                     // TODO: 2019-08-30 Display this to the user.
 //                    Toast.makeText(context, String.format("Successfully created coupon for %d %s", quantity, action), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {

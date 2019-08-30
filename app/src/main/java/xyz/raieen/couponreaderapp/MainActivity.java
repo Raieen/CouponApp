@@ -23,10 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APPLICATION_SECRET = "abc";
 
     // Coupon API
-    public String HOST = "raieen.xyz";
-    public String COUPON_URL_PREFIX = "";
-    public String CREATE_ENDPOINT = "...";
-    public String REDEEM_ENDPOINT = "...";
+    public static final String COUPON_ENDPOINT = "http://192.168.2.59:8080/coupon/";
 
     // Volley
     private RequestQueue requestQueue;
@@ -72,17 +69,11 @@ public class MainActivity extends AppCompatActivity {
                         int quantity = Integer.parseInt(spinnerQuantity.getSelectedItem().toString());
                         boolean redeemable = checkRedeemable.isChecked();
                         // TODO: 2019-08-30 Probably some check for validity here.
-                        requestQueue.add(new CreateCouponRequest(CREATE_ENDPOINT, action, recipient, quantity, redeemable));
+                        requestQueue.add(new CreateCouponRequest(COUPON_ENDPOINT, action, recipient, quantity, redeemable));
                     }
                 }).start();
             }
         });
-
-        // TODO: 2019-08-30 Do this in xml.
-        Spinner spinner = findViewById(R.id.activity_main_spinner_quantity);
-        String[] arr = {"1", "2", "3", "4", "5"};
-        spinner.setAdapter(new ArrayAdapter<String>(MainActivity.this,
-                R.layout.support_simple_spinner_dropdown_item, arr));
     }
 
     /**
@@ -95,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getCouponId(String string) {
-        return string.replaceAll("http://", "").replaceAll("https://", "").replaceAll(COUPON_URL_PREFIX, "");
+        return string.replaceAll(COUPON_ENDPOINT, "");
     }
 
     @Override
@@ -107,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, String.format("onActivityResult: Scanned %s", result));
 
             // Coupon QR Codes are formatted as COUPON_URL_PREFIX{id}
-            if (!result.contains(COUPON_URL_PREFIX)) {
+            if (!result.contains(COUPON_ENDPOINT)) {
                 showScanningIntent(); // Not a coupon, resume scanning
                 return;
             }
@@ -115,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             final String couponId = getCouponId(result);
             Log.d(TAG, String.format("onActivityResult: Coupon has id %s", couponId));
 
-            requestQueue.add(new GetCouponRequest("getcoupon", this, requestQueue, "coupon/xxx"));
+            requestQueue.add(new GetCouponRequest(COUPON_ENDPOINT + "/" + couponId, this, requestQueue, couponId));
         }
     }
 }
