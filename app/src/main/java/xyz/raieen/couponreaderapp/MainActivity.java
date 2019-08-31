@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
 
     // Coupon API
-    public static final String COUPON_ENDPOINT = "http://192.168.2.59:8080/coupon/";
+    public static final String COUPON_ENDPOINT = "http://localhost:8080/coupon/";
     public static final String APPLICATION_SECRET = "abc";
 
     // Volley
