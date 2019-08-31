@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
 
     // Coupon API
-    public static final String COUPON_ENDPOINT = "http://192.168.2.59:8080/coupon/"; // TODO: 2019-08-30 Use preferences
+    public static final String COUPON_ENDPOINT = "http://192.168.2.59:8080/coupon/";
     public static final String APPLICATION_SECRET = "abc";
 
     // Volley
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
                         boolean redeemable = checkRedeemable.isChecked();
 
                         if (action.trim().isEmpty()) return;
-                        requestQueue.add(new CreateCouponRequest(COUPON_ENDPOINT, action, recipient,
-                                quantity, redeemable, getApplicationContext()));
+                        requestQueue.add(new CreateCouponRequest(action, recipient,
+                                quantity, redeemable, MainActivity.this));
                     }
                 }).start();
             }
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
             final String couponId = result.replaceAll(COUPON_ENDPOINT, "");
             Log.d(TAG, String.format("onActivityResult: Coupon has id %s", couponId));
-            requestQueue.add(new GetCouponRequest(COUPON_ENDPOINT + "/" + couponId, this, requestQueue, couponId));
+            requestQueue.add(new GetCouponRequest(couponId, this, requestQueue));
         }
     }
 }

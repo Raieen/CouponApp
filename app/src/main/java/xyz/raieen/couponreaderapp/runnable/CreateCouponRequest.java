@@ -25,8 +25,8 @@ public class CreateCouponRequest extends JsonObjectRequest {
     private int quantity;
     private boolean redeemable;
 
-    public CreateCouponRequest(String url, String action, String recipient, int quantity, boolean redeemable, final Context context) {
-        super(Method.PUT, url, null, new Response.Listener<JSONObject>() {
+    public CreateCouponRequest(String action, String recipient, int quantity, boolean redeemable, final Context context) {
+        super(Method.PUT, MainActivity.COUPON_ENDPOINT, null, new Response.Listener<JSONObject>() {
             private final String TAG = "CreateCouponRequestLis";
 
             @Override
@@ -40,7 +40,9 @@ public class CreateCouponRequest extends JsonObjectRequest {
                     final long redeemed = response.getLong("redeemed");
 
                     Log.d(TAG, String.format("onResponse: Created coupon for %d %s", quantity, action));
-                    new AlertDialog.Builder(context).setTitle("Successfully Created Coupon")
+                    Log.d(TAG, "onResponse: " + context.getString(R.string.coupon_details, id, quantity, action, recipient, redeemable, redeemed));
+                    // Id: %1$s Quantity: %2$d Action: %3$s Recipient: %4$s Redeemable: %5$b Redeemed: %6$d
+                    new AlertDialog.Builder(context).setTitle(R.string.create_coupon_title)
                             .setMessage(context.getString(R.string.coupon_details, id, quantity, action, recipient, redeemable, redeemed))
                             .create().show();
                 } catch (JSONException e) {

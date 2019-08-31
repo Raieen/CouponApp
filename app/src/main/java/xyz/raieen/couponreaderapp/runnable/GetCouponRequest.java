@@ -23,8 +23,8 @@ import java.util.Map;
  */
 public class GetCouponRequest extends JsonObjectRequest {
 
-    public GetCouponRequest(String url, final Context context, final RequestQueue requestQueue, final String couponId) {
-        super(Method.POST, url, null, new Response.Listener<JSONObject>() {
+    public GetCouponRequest(final String couponId, final Context context, final RequestQueue requestQueue) {
+        super(Method.POST, MainActivity.COUPON_ENDPOINT + "/" + couponId, null, new Response.Listener<JSONObject>() {
             private final String TAG = "GetCouponRequestL";
 
             @Override
@@ -51,7 +51,7 @@ public class GetCouponRequest extends JsonObjectRequest {
                                         @Override
                                         public void run() {
                                             // Send redeem request
-                                            requestQueue.add(new RedeemCouponRequest(MainActivity.COUPON_ENDPOINT + couponId + "/redeem", context));
+                                            requestQueue.add(new RedeemCouponRequest(couponId, context));
                                         }
                                     }).start();
                                 }

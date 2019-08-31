@@ -20,8 +20,8 @@ import java.util.Map;
  */
 public class RedeemCouponRequest extends JsonObjectRequest {
 
-    public RedeemCouponRequest(String url, final Context context) {
-        super(Method.POST, url, null, new Response.Listener<JSONObject>() {
+    public RedeemCouponRequest(String couponId, final Context context) {
+        super(Method.POST, MainActivity.COUPON_ENDPOINT + couponId + "/redeem", null, new Response.Listener<JSONObject>() {
             private final String TAG = "RedeemCouponRequestL";
 
             @Override

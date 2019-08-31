@@ -23,10 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="@string/action"
-            android:hint="@string/action"
+            android:hint="@string/high_five"
             android:ems="10"
-            android:id="@+id/activity_main_edit_action"/>
+            android:id="@+id/activity_main_edit_action" android:text="@string/high_five"/>
     <TextView
             android:text="@string/recipient"
             android:layout_width="match_parent"
@@ -35,9 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:text="@string/recipient"
             android:ems="10"
-            android:id="@+id/activity_main_edit_recipient"/>
+            android:id="@+id/activity_main_edit_recipient" android:hint="@string/recipient_hint"/>
     <TextView
             android:text="@string/quantity"
             android:layout_width="match_parent"
@@ -67,5 +65,5 @@
             android:text="@string/create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/activity_main_btn_create"
-    />
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 </LinearLayout>

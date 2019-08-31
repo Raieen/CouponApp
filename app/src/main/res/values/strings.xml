@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">CouponReaderApp</string>
+    <string name="app_name">Coupon Reader</string>
     <string name="zxing_message">Place a QR code inside the rectangle to scan.</string>
-    <string name="coupon_details">Id: %1$s Quantity: %2$d Action: %3$s Recipient: %4$s Redeemable: %5$b Redeemed: %6$l</string>
+    <string name="coupon_details">Id: %1$s\nQuantity: %2$d\nAction: %3$s\nRecipient: %4$s\nRedeemable: %5$b\nRedeemed: %6$d
+    </string>
     <string name="coupon_redeemed">Coupon was already redeemed.</string>
     <string name="coupon_authorize">Authorize this coupon?</string>
     <string name="cancel">Cancel</string>
@@ -13,4 +14,7 @@
     <string name="redeemable">Redeemable</string>
     <string name="create">Create</string>
     <string name="scan_coupon">Scan Coupon</string>
+    <string name="high_five">High Five</string>
+    <string name="recipient_hint">root@localhost</string>
+    <string name="create_coupon_title">Successfully Created Coupon</string>
 </resources>
